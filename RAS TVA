@@ -1,29 +1,46 @@
 @startuml
-
-skin rose
-
-title RAS TVA
+title Retenue A la Source (RAS) sur TVA
+skinparam {
+    defaultFontColor black
+    defaultFontSize 14
+    defaultTextAlignment center
+    rectangle {
+        BackgroundColor White
+        FontColor Black
+        BorderColor Black
+    }
+}
 
 start
 
-if (Opération exclue de la RAS sur TVA ? \n (EE, TELECOM, ASSURANCES, \nmontant <5000 DH TTC dans la limite de\n 50000 DH par mois et par fournisseur)) then (oui)
-  :Payer le montant TTC;
-else (non)
-  if (Nature opération ?) then (prestation)
-    if (Prestataire justifie sa régularité fiscale ? ) then (non)
-      :Payer le montant HT \nRAS de 100% de TVA;
-    else (oui)
-      :Payer le montant HT + 25% de TVA\nRAS de 75% de TVA;
-    endif
-  else (travaux)
-    if (Prestataire justifie sa régularité fiscale ? ) then (non)
-      :Payer le montant HT \nRAS de 100% de TVA;
-    else (oui)
-      :Payer le montant TTC;
+if (type d'opération objet de la facture ?) then (Travaux / Equipement)
+  if (Attestation de régularité conforme ?) then (Oui)
+    :<back:lightgreen>Pas de RAS sur TVA;
+    stop
+  else (Non)
+    :<back:lightcoral>RAS 100% sur TVA;
+    stop
+  endif
+else (Prestation)
+  if (montant facture < 5000 dh et total\n fournisseur du mois < 50000 dh?) then (Oui)
+    :<back:lightgreen>Pas de RAS sur TVA;
+    stop
+  else (Non)
+    if (Prestation soumise à la RAS sur TVA ?) then (Oui)
+      goto decision_attestation
+    else (Non)
+      :<back:lightgreen>Pas de RAS sur TVA;
+      stop
     endif
   endif
 endif
 
+label decision_attestation
+if (Attestation de régularité conforme ?) then (Oui)
+  :<back:lightyellow>RAS 75% sur TVA;
+else (Non)
+  :<back:lightcoral>RAS 100% sur TVA;
+endif
 stop
 
 @enduml
