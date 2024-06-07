@@ -1,0 +1,29 @@
+@startuml
+
+skin rose
+
+title RAS TVA
+
+start
+
+if (Opération exclue de la RAS sur TVA ? \n (EE, TELECOM, ASSURANCES, \nmontant <5000 DH TTC dans la limite de\n 50000 DH par mois et par fournisseur)) then (oui)
+  :Payer le montant TTC;
+else (non)
+  if (Nature opération ?) then (prestation)
+    if (Prestataire justifie sa régularité fiscale ? ) then (non)
+      :Payer le montant HT \nRAS de 100% de TVA;
+    else (oui)
+      :Payer le montant HT + 25% de TVA\nRAS de 75% de TVA;
+    endif
+  else (travaux)
+    if (Prestataire justifie sa régularité fiscale ? ) then (non)
+      :Payer le montant HT \nRAS de 100% de TVA;
+    else (oui)
+      :Payer le montant TTC;
+    endif
+  endif
+endif
+
+stop
+
+@enduml
