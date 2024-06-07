@@ -9,6 +9,10 @@ skinparam {
         FontColor Black
         BorderColor Black
     }
+    activity {
+        BackgroundColor White
+        BorderColor Black
+    }
 }
 
 start
@@ -22,7 +26,7 @@ if (type d'opération objet de la facture ?) then (Travaux / Equipement)
     stop
   endif
 else (Prestation)
-  if (montant facture < 5000 dh et total\n fournisseur du mois < 50000 dh?) then (Oui)
+  if (montant facture < 5000 dh TTC et total\n fournisseur du mois < 50000 dh TTC?) then (Oui)
     :<back:lightgreen>Pas de RAS sur TVA;
     stop
   else (Non)
