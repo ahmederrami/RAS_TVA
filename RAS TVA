@@ -17,8 +17,8 @@ skinparam {
 
 start
 
-if (type d'opération objet de la facture ?) then (Travaux / Equipement)
-  if (Attestation de régularité conforme ?) then (Oui)
+if (type d'opération objet\n de la facture ?) then (Travaux / Equipement)
+  if (Attestation de régularité\n conforme ?) then (Oui)
     :<back:lightgreen>Pas de RAS sur TVA;
     stop
   else (Non)
@@ -30,7 +30,7 @@ else (Prestation)
     :<back:lightgreen>Pas de RAS sur TVA;
     stop
   else (Non)
-    if (Prestation soumise à la RAS sur TVA ?) then (Oui)
+    if (Prestation soumise à\n la RAS sur TVA ?) then (Oui)
       goto decision_attestation
     else (Non)
       :<back:lightgreen>Pas de RAS sur TVA;
@@ -40,7 +40,7 @@ else (Prestation)
 endif
 
 label decision_attestation
-if (Attestation de régularité conforme ?) then (Oui)
+if (Attestation de régularité\n conforme ?) then (Oui)
   :<back:lightyellow>RAS 75% sur TVA;
 else (Non)
   :<back:lightcoral>RAS 100% sur TVA;
