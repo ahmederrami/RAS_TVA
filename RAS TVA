@@ -1,50 +1,32 @@
 @startuml
-title Retenue A la Source (RAS) sur TVA
-skinparam {
-    defaultFontColor black
-    defaultFontSize 14
-    defaultTextAlignment center
-    rectangle {
-        BackgroundColor White
-        FontColor Black
-        BorderColor Black
-    }
-    activity {
-        BackgroundColor White
-        BorderColor Black
-    }
-}
+
+skin rose
+
+title Processus d'application de\n la RAS sur la TVA
 
 start
 
-if (type d'opération objet\n de la facture ?) then (Travaux / Equipement)
-  if (Attestation de régularité\n conforme ?) then (Oui)
-    :<back:lightgreen>Pas de RAS sur TVA;
+if (Type opération ?) then (Travaux)
+  if (Attestation de régularité\n fiscale conforme ?) then (oui)
+    :<back:green><color:white>Pas de RAS;
     stop
-  else (Non)
-    :<back:lightcoral>RAS 100% sur TVA;
+  else (non)
+    :<back:red><color:white>RAS 100%;
     stop
   endif
 else (Prestation)
-  if (montant facture < 5000 dh TTC et total\n fournisseur du mois < 50000 dh TTC?) then (Oui)
-    :<back:lightgreen>Pas de RAS sur TVA;
-    stop
-  else (Non)
-    if (Prestation soumise à\n la RAS sur TVA ?) then (Oui)
-      goto decision_attestation
-    else (Non)
-      :<back:lightgreen>Pas de RAS sur TVA;
+  if (Prestation soumise ?) then (oui)
+    if (Attestation de régularité\n fiscale conforme ?) then (oui)
+      :<back:orange><color:black>RAS 75%;
+      stop
+    else (non)
+      :<back:red><color:white>RAS 100%;
       stop
     endif
+  else (non)
+    :<back:green><color:white>Pas de RAS;
+    stop
   endif
 endif
-
-label decision_attestation
-if (Attestation de régularité\n conforme ?) then (Oui)
-  :<back:lightyellow>RAS 75% sur TVA;
-else (Non)
-  :<back:lightcoral>RAS 100% sur TVA;
-endif
-stop
 
 @enduml
