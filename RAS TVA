@@ -1,6 +1,12 @@
 @startuml
 
-skin rose
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName Arial
+skinparam sequenceArrowThickness 1
+skinparam sequenceLifeLineBorderColor #000000
+skinparam sequenceLifeLineBackgroundColor #FFFFFF
+skinparam sequenceActorBorderColor #000000
+skinparam sequenceActorBackgroundColor #FFFFFF
 
 title Processus d'application de\n la RAS sur la TVA
 
@@ -8,10 +14,10 @@ start
 
 if (Type opération ?) then (Travaux)
   if (Attestation de régularité\n fiscale conforme ?) then (oui)
-    :<back:green><color:white>Pas de RAS;
+    :<back:green><color:white><b>Pas de RAS</b>;
     stop
   else (non)
-    :<back:red><color:white>RAS 100%;
+    :<back:red><color:white><b>RAS 100%</b>;
     stop
   endif
 else (Prestation)
@@ -20,11 +26,11 @@ else (Prestation)
       :<back:orange><color:black>RAS 75%;
       stop
     else (non)
-      :<back:red><color:white>RAS 100%;
+      :<back:red><color:white><b>RAS 100%</b>;
       stop
     endif
   else (non)
-    :<back:green><color:white>Pas de RAS;
+    :<back:green><color:white><b>Pas de RAS</b>;
     stop
   endif
 endif
